@@ -19,7 +19,8 @@ namespace VendingMechine.Model
             int totalProducts = 0;
             int totalProductsCost = 0;
             int[] isValidMoney_poolMoney;
-
+            List<int> allProductsSelected = new List<int>();
+            int productNumber;
             do
             {
 
@@ -28,8 +29,8 @@ namespace VendingMechine.Model
                 // Display headers
                 Console.WriteLine("************** Welcome to the Vending Machine *******************");
                 Console.WriteLine("Products available for Purchase\n");
-                string header = String.Format("{0,-20}{1,8}\n",
-                                          "Product", "Price (SEK)");
+                string header = String.Format("{0,-20}{1,-20}{2,8}\n",
+                                         "Product Number", "Product", "Price (SEK)");
 
                 vendingmachinedata machineObject = new vendingmachinedata();
                 List<product> listOfProducts = new List<product>();
@@ -37,8 +38,11 @@ namespace VendingMechine.Model
                 Console.WriteLine(header);
                 foreach (var s in listOfProducts)
                 {
-                    Console.WriteLine(s.ProductName());
                     totalProducts += 1;
+                    string data = String.Format("{0,-20}{1,-28}",
+                                         totalProducts, s.ProductName());
+                    Console.WriteLine(data);
+                    
                 }
 
                 // Purchase products from the list
@@ -46,24 +50,27 @@ namespace VendingMechine.Model
                 {
                     // Select product number to buy 
                     Console.WriteLine("Please select product by choosing product number");
-                    int productNumber = int.Parse(Console.ReadLine());
+                    productNumber = int.Parse(Console.ReadLine());
                     if(1 <= productNumber && productNumber <= totalProducts)
                     {
                         var s = listOfProducts[productNumber - 1];
                         Console.WriteLine("Selected Product successfully: {0}", s.ProductName().Substring(0, 20));
-                        int pno = machineObject.Purchaseproduct(productNumber);
-                        totalProductsCost += pno;
+                        int productCost = machineObject.Purchaseproduct(productNumber);
+                        totalProductsCost += productCost;
+                        allProductsSelected.Add(productNumber);
                     }
                     else
                     {
-                        Console.WriteLine("Selected Product Number is Invalid. No Product has been selected");
+                        Console.WriteLine("******>>>> Invalid Product Number");
                     }
-                    Console.WriteLine("Would you like to select more products. Press Y to continue buying");
+                    Console.WriteLine("******>>>> Press Y to continue buying");
 
                     SelectProduct = Console.ReadLine().ToUpper();
 
                 } while(SelectProduct == "Y");
 
+                // Total amount required to buy
+                Console.WriteLine("Total Amount Required to buy products {0}", totalProductsCost);
 
                 // Insert Money to the pool
                 int[] moneyList = machineObject.ValidDenominations();
@@ -80,24 +87,41 @@ namespace VendingMechine.Model
                     }
                     else
                     {
-                        Console.WriteLine("In valid denomination. Money was not added. Total Money available for purchase : {0}", isValidMoney_poolMoney[1]);
+                        Console.WriteLine("******>>>> In valid denomination. Total Money available for purchase : {0}", isValidMoney_poolMoney[1]);
                     }
-                    Console.WriteLine("Would you like to enter more money. Press Y to add more money");
+                    Console.WriteLine("******>>>> Press Y to add more money");
                     addMoney = Console.ReadLine().ToUpper();
                     if (addMoney != "Y")
                     {
                         if (totalProductsCost > isValidMoney_poolMoney[1])
                         {
                             Console.WriteLine("Insufficient Money to buy products");
-                            addMoney = "Y";
+                            addMoney = "Y";     
                         }
-
                     }
                 } while (addMoney == "Y");
 
                 // End Transaction
                 double change = machineObject.EndTransaction(isValidMoney_poolMoney[1], totalProductsCost);
-                Console.WriteLine(change);
+                Console.Clear();
+                string Bheader = String.Format("{0,-20}{1,-20}{2,30}\n",
+                                               "Product", "Price (SEK)", "Product Description");
+                Console.WriteLine("*****************************************");
+                Console.WriteLine("************ Thank you ******************");
+                Console.WriteLine("Products Pruchsed: ****>>>");
+                Console.WriteLine(Bheader);
+                foreach (int s in allProductsSelected)
+                {
+                    var p = listOfProducts[s];
+                    string productMsg = machineObject.ProductMsg(productNumber);
+                    string Bdata = String.Format("{0,-28}{1,30}",
+                                                 p.ProductName(),productMsg);
+                    Console.WriteLine(Bdata);
+                }
+
+                Console.WriteLine("Total Cost of the products : {0} SEk", totalProductsCost);
+                Console.WriteLine("Money to Return to User : {0} SEK", change);
+
 
             } while (isContinue);
 

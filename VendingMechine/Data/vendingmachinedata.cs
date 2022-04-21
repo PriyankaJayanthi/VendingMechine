@@ -16,15 +16,15 @@ namespace VendingMachine.Data
         //List of all products in Vending machine
         List<items> listOfProducts = new List<items>()
         {
-            new items() { Name = "Cola", Price = 20 },
-            new items() { Name = "Sprit", Price = 25 },
-            new items() { Name = "Pepsi", Price = 30 },
-            new items() { Name = "Kex", Price = 100 },
-            new items() { Name = "Bounty", Price = 200 },
-            new items() { Name = "Mars", Price = 50 },
-            new items() { Name = "Chile Nötter", Price = 500 },
-            new items() { Name = "Chips", Price = 150 },
-            new items() { Name = "Sandwich", Price = 80 },
+            new items() { Name = "Cola", Price = 20, Message = "Enjoy the drink" },
+            new items() { Name = "Sprit", Price = 25, Message = "Enjoy the drink" },
+            new items() { Name = "Pepsi", Price = 30, Message = "Enjoy the drink" },
+            new items() { Name = "Kex", Price = 100, Message = "Enjoy the chocolate" },
+            new items() { Name = "Bounty", Price = 200, Message = "Enjoy the chocolate" },
+            new items() { Name = "Mars", Price = 50, Message = "Enjoy the chocolate" },
+            new items() { Name = "Chile Nötter", Price = 500, Message = "Enjoy the chocolate" },
+            new items() { Name = "Chips", Price = 150, Message = "Enjoy the chocolate" },
+            new items() { Name = "Sandwich", Price = 80, Message = "Enjoy the chocolate" },
         };
 
 
@@ -85,10 +85,18 @@ namespace VendingMachine.Data
             return remainingbalance;
         }
 
+        // Product Message
+        public string ProductMsg(int productNumber)
+        {
+            var itemMessage = listOfProducts[productNumber - 1].Message;
+            return itemMessage;
+        }
+
         public class items
         {
             public string Name { get; set; }
             public int Price { get; set; }
+            public string Message { get; set; }
         }
 
     }
