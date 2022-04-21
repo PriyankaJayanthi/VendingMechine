@@ -18,6 +18,6 @@ namespace VendingMachine.Functions
         public int[] InsertMoney(int insertmoney);
 
         // End Transactions and return if any money left in pool
-        //public double EndOfTrancation(int user_input_money, int number_of_product);
+        public double EndTransaction(int userInputMoney, int totalProductCost);
     }
 }

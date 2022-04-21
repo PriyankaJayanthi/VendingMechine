@@ -12,17 +12,18 @@ namespace VendingMechine.Model
     {
         static void Main(string[] args)
         {
-            // Initialize
             bool isContinue = true;
-            string addMoney = "N";
-            string SelectProduct = "N";
-            int totalProducts = 0;
-            int totalProductsCost = 0;
-            int[] isValidMoney_poolMoney;
-            List<int> allProductsSelected = new List<int>();
-            int productNumber;
+
             do
             {
+                // Initialize
+                string addMoney = "N";
+                string SelectProduct = "N";
+                int totalProducts = 0;
+                int totalProductsCost = 0;
+                int[] isValidMoney_poolMoney;
+                List<int> allProductsSelected = new List<int>();
+                int productNumber;
 
                 // List all products using ShowAll
 
