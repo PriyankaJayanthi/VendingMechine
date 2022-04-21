@@ -22,9 +22,9 @@ namespace VendingMachine.Data
             new items() { Name = "Kex", Price = 100, Message = "Enjoy the chocolate" },
             new items() { Name = "Bounty", Price = 200, Message = "Enjoy the chocolate" },
             new items() { Name = "Mars", Price = 50, Message = "Enjoy the chocolate" },
-            new items() { Name = "Chile Nötter", Price = 500, Message = "Enjoy the chocolate" },
-            new items() { Name = "Chips", Price = 150, Message = "Enjoy the chocolate" },
-            new items() { Name = "Sandwich", Price = 80, Message = "Enjoy the chocolate" },
+            new items() { Name = "Chile Nötter", Price = 500, Message = "Enjoy the snacks" },
+            new items() { Name = "Chips", Price = 150, Message = "Enjoy the snacks" },
+            new items() { Name = "Sandwich", Price = 80, Message = "Enjoy the snacks" },
         };
 
 
@@ -88,7 +88,7 @@ namespace VendingMachine.Data
         // Product Message
         public string ProductMsg(int productNumber)
         {
-            var itemMessage = listOfProducts[productNumber - 1].Message;
+            var itemMessage = listOfProducts[productNumber].Message;
             return itemMessage;
         }
 

@@ -13,7 +13,7 @@ namespace VendingMechine.Model
         static void Main(string[] args)
         {
             // Initialize
-            bool isContinue = false;
+            bool isContinue = true;
             string addMoney = "N";
             string SelectProduct = "N";
             int totalProducts = 0;
@@ -29,8 +29,8 @@ namespace VendingMechine.Model
                 // Display headers
                 Console.WriteLine("************** Welcome to the Vending Machine *******************");
                 Console.WriteLine("Products available for Purchase\n");
-                string header = String.Format("{0,-20}{1,-20}{2,8}\n",
-                                         "Product Number", "Product", "Price (SEK)");
+                string header = String.Format("{0,-4}{1,-20}{2,8}\n",
+                                         "No#", "Product", "Price (SEK)");
 
                 vendingmachinedata machineObject = new vendingmachinedata();
                 List<product> listOfProducts = new List<product>();
@@ -39,7 +39,7 @@ namespace VendingMechine.Model
                 foreach (var s in listOfProducts)
                 {
                     totalProducts += 1;
-                    string data = String.Format("{0,-20}{1,-28}",
+                    string data = String.Format("{0,-4}{1,-28}",
                                          totalProducts, s.ProductName());
                     Console.WriteLine(data);
                     
@@ -57,7 +57,7 @@ namespace VendingMechine.Model
                         Console.WriteLine("Selected Product successfully: {0}", s.ProductName().Substring(0, 20));
                         int productCost = machineObject.Purchaseproduct(productNumber);
                         totalProductsCost += productCost;
-                        allProductsSelected.Add(productNumber);
+                        allProductsSelected.Add(productNumber - 1);
                     }
                     else
                     {
@@ -104,23 +104,30 @@ namespace VendingMechine.Model
                 // End Transaction
                 double change = machineObject.EndTransaction(isValidMoney_poolMoney[1], totalProductsCost);
                 Console.Clear();
-                string Bheader = String.Format("{0,-20}{1,-20}{2,30}\n",
-                                               "Product", "Price (SEK)", "Product Description");
+                string Bheader = String.Format("{0,-20}{1,-20}{2,-30}",
+                                               "Products Purchased", "Price (SEK)", "Product Description");
                 Console.WriteLine("*****************************************");
                 Console.WriteLine("************ Thank you ******************");
-                Console.WriteLine("Products Pruchsed: ****>>>");
                 Console.WriteLine(Bheader);
                 foreach (int s in allProductsSelected)
                 {
                     var p = listOfProducts[s];
-                    string productMsg = machineObject.ProductMsg(productNumber);
+                    string productMsg = machineObject.ProductMsg(s);
                     string Bdata = String.Format("{0,-28}{1,30}",
                                                  p.ProductName(),productMsg);
                     Console.WriteLine(Bdata);
                 }
-
+                Console.WriteLine("*********>>>>>>>>");
                 Console.WriteLine("Total Cost of the products : {0} SEk", totalProductsCost);
                 Console.WriteLine("Money to Return to User : {0} SEK", change);
+                Console.WriteLine("would you like to continue or exit. Enter Any Key - Continue or N - Exit");
+                var key = Console.ReadLine().ToUpper();
+                if (key == "N")
+                {
+                    isContinue = false;
+                    Console.WriteLine("Thanks for shopping");
+                    Console.ReadKey();
+                }
 
 
             } while (isContinue);
