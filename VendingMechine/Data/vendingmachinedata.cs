@@ -11,38 +11,59 @@ namespace VendingMachine.Data
     {
         readonly int[] moneyDenominations = { 1, 5, 10, 20, 50, 100, 500, 1000 };
         int[] isValid_PoolMoney = new int[2] {0, 0};
+        List<product> listOfDetails = new List<product>();
+
+        //List of all products in Vending machine
+        List<items> listOfProducts = new List<items>()
+        {
+            new items() { Name = "Cola", Price = 20 },
+            new items() { Name = "Sprit", Price = 25 },
+            new items() { Name = "Pepsi", Price = 30 },
+            new items() { Name = "Kex", Price = 100 },
+            new items() { Name = "Bounty", Price = 200 },
+            new items() { Name = "Mars", Price = 50 },
+            new items() { Name = "Chile Nötter", Price = 500 },
+            new items() { Name = "Chips", Price = 150 },
+            new items() { Name = "Sandwich", Price = 80 },
+        };
+
 
         public List<product> ShowAll()
-        {
-            List<product> listOfItems = new List<product>();
+        { 
 
-            Drinks cola = new Drinks("cola",15);
-            Drinks sprite = new Drinks("Sprite",20);
-            Drinks pepsi = new Drinks("Pepsi", 25);
-            chocolates kex = new chocolates("Kex", 100);
-            chocolates Bounty = new chocolates("Bounty", 200);
-            chocolates mars = new chocolates("Mars", 50);
-            Snacks chilenötter = new Snacks("ChileNötter", 500);
-            Snacks chips = new Snacks("Chips", 150);
-            Snacks wasasandwich = new Snacks("Sandwich", 80);
-            
-            listOfItems.Add(cola);
-            listOfItems.Add(sprite);
-            listOfItems.Add(pepsi);
-            listOfItems.Add(kex);
-            listOfItems.Add(Bounty);
-            listOfItems.Add(mars);
-            listOfItems.Add(chilenötter);
-            listOfItems.Add(chips);
-            listOfItems.Add(wasasandwich);
+            Drinks cola = new Drinks(listOfProducts[0].Name, listOfProducts[0].Price);
+            Drinks sprite = new Drinks(listOfProducts[1].Name, listOfProducts[1].Price);
+            Drinks pepsi = new Drinks(listOfProducts[2].Name, listOfProducts[2].Price);
+            chocolates kex = new chocolates(listOfProducts[3].Name, listOfProducts[3].Price);
+            chocolates Bounty = new chocolates(listOfProducts[4].Name, listOfProducts[4].Price);
+            chocolates mars = new chocolates(listOfProducts[5].Name, listOfProducts[5].Price);
+            Snacks chilenötter = new Snacks(listOfProducts[6].Name, listOfProducts[6].Price);
+            Snacks chips = new Snacks(listOfProducts[7].Name, listOfProducts[7].Price);
+            Snacks wasasandwich = new Snacks(listOfProducts[8].Name, listOfProducts[8].Price);
 
-            return listOfItems;
+            listOfDetails.Add(cola);
+            listOfDetails.Add(sprite);
+            listOfDetails.Add(pepsi);
+            listOfDetails.Add(kex);
+            listOfDetails.Add(Bounty);
+            listOfDetails.Add(mars);
+            listOfDetails.Add(chilenötter);
+            listOfDetails.Add(chips);
+            listOfDetails.Add(wasasandwich);
+
+            return listOfDetails;
         }
 
         //Implimentation of show all denominations to purchase product
         public int[] ValidDenominations()
         {
             return moneyDenominations;
+        }
+
+        public int Purchaseproduct(int productNumber)
+        {
+            var itemCost = listOfProducts[productNumber-1].Price;
+            return itemCost;
         }
 
         //Implimentation of InserMoney function
@@ -55,5 +76,20 @@ namespace VendingMachine.Data
             }
             return isValid_PoolMoney;
         }
+
+        //Implimentation of EndTransaction functiom
+        public double EndTransaction(int userInputMoney, int totalProductCost)
+        {
+            double remainingbalance = 0.0;
+            remainingbalance = userInputMoney - totalProductCost;
+            return remainingbalance;
+        }
+
+        public class items
+        {
+            public string Name { get; set; }
+            public int Price { get; set; }
+        }
+
     }
 }

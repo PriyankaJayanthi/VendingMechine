@@ -13,7 +13,8 @@ namespace VendingMachine.Functions
         }
         public override string ProductName()
         {
-            return string.Format("{0,-12}{1,8:N0}", Name, Price);
+            return string.Format("{0,-20}{1,8:N0}", Name, Price);
         }
+
     }
 }
