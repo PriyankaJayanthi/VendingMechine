@@ -12,11 +12,11 @@ namespace VendingMachine.Test
         public void Test_Cashew_product()
         {
             //Arrange
-            string expected = "Cashew";
+            string expected = "Cashew                    80";
             //Act
             var Mysnacks = new Snacks("Cashew", 80);
             //Assert
-            Assert.Contains(expected, Mysnacks.ProductName());
+            Assert.Equal(expected, Mysnacks.ProductName());
         }
         [Fact]
         public void Test_mixednuts_product()

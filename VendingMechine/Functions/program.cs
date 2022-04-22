@@ -64,7 +64,7 @@ namespace VendingMechine.Model
                     {
                         Console.WriteLine("******>>>> Invalid Product Number");
                     }
-                    Console.WriteLine("******>>>> Press Y to continue buying");
+                    Console.WriteLine("******>>>> Press Y to continue buying or N to stop buying");
 
                     SelectProduct = Console.ReadLine().ToUpper();
 
@@ -90,7 +90,7 @@ namespace VendingMechine.Model
                     {
                         Console.WriteLine("******>>>> In valid denomination. Total Money available for purchase : {0}", isValidMoney_poolMoney[1]);
                     }
-                    Console.WriteLine("******>>>> Press Y to add more money");
+                    Console.WriteLine("******>>>> Press Y to add more money or N to not adding money");
                     addMoney = Console.ReadLine().ToUpper();
                     if (addMoney != "Y")
                     {
