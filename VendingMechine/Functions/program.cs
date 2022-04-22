@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using VendingMachine.Functions;
 using VendingMachine.Data;
 
+// VendingMachine program for buying products
 
 namespace VendingMechine.Model
 {
